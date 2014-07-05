@@ -1,0 +1,30 @@
+{
+  "name": "vuforiajs",
+  "version": "0.1.0",
+  "description": "Node.js client for the Vuforia Web Services API (VWS API)",
+  "main": "vuforia.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pwasem/vuforiajs"
+  },
+  "keywords": [
+    "vuforia",
+    "vws",
+    "api",
+    "augmented",
+    "reality",
+    "cloud",
+    "target",
+    "image",
+    "recognition"
+  ],
+  "author": "pascal.wasem@googlemail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pwasem/vuforiajs/issues"
+  },
+  "homepage": "https://github.com/pwasem/vuforiajs"
+}
