@@ -2,8 +2,7 @@
  Node.js client for the Vuforia Web Services API (VWS API)
  
 ## usage
-<code>
-  
+      
     // load module
     var vuforia = require('vuforiajs');
     
@@ -19,12 +18,9 @@
     
     // util for base64 encoding and decoding
     var util = vuforia.util();
-         
-</code>
         
 ## create a new target
-<code>
-        
+    
     var target = {
     
         // name of the target, unique within a database
@@ -38,12 +34,9 @@
         // the base64 encoded application metadata associated with the target
         'application_metadata': util.encodeBase64('some metadata about your image')
     };
-        
-</code>
-        
+            
 ## add target to cloud database
-<code>
-        
+   
     client.addTarget(target, function (error, result) {
     
         if (error) { // e.g. [Error: AuthenticationFailure]
@@ -68,12 +61,9 @@
              */
         }
     });
-        
-</code>
-        
+              
 ## list all targets within cloud database
-<code> 
-        
+    
     client.listTargets(function (error, result) {
     
         console.log(result);
@@ -90,11 +80,10 @@
         */
     
     });             
-</code>
+
         
 ## retrieve a target from cloud database
-<code>
-        
+    
     client.retrieveTarget('00550e84e29b41d4a71644665555678', function (error, result) {
     
         /*
@@ -113,12 +102,9 @@
          }
          */
     });
-        
-</code>
-        
+              
 ## update a target
-<code>
-    
+  
     var update = {
     
         'active_flag' : false
@@ -138,12 +124,9 @@
         // util.decodeBase64(application_metadata);
     
     });
-        
-</code>
-        
+               
 ## delete a target
-<code>
-        
+     
     client.deleteTarget('00550e84e29b41d4a71644665555678', function (error, result) {
     
         /*
@@ -153,11 +136,8 @@
          }
          */
     });
-          
-</code>
-        
+           
 ## search cloud database for images that can be considered duplicates
-<code>
 
     client.checkForDuplicateTargets('00550e84e29b41d4a71644665555678', function (error, result) {
     
@@ -172,5 +152,4 @@
          }
          */
     });
-
-</code>
+    
