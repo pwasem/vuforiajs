@@ -1,6 +1,6 @@
 {
   "name": "vuforiajs",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "Node.js client for the Vuforia Web Services API (VWS API)",
   "main": "vuforia.js",
   "scripts": {
