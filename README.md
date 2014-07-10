@@ -3,7 +3,7 @@ vuforiajs
 
  Node.js client for the Vuforia Web Services API (VWS API)
  
- usage
+usage
 =========
  
  ```
@@ -21,10 +21,16 @@ vuforiajs
             'secretKey': '46fab274fe49285b5c1660c505344be04132d8fd'
         });
         
-        // init util for base64 encoding and decoding
+        // util for base64 encoding and decoding
         var util = vuforia.util();
         
-        // create a target
+´´´
+        
+create a new target
+=========
+ 
+ ```        
+        
         var target = {
         
             // name of the target, unique within a database
@@ -39,7 +45,13 @@ vuforiajs
             'application_metadata': util.encodeBase64('some metadata about your image')
         };
         
-        // add the target to a cloud database
+´´´
+        
+add target to cloud database
+=========
+ 
+```    
+        
         client.addTarget(target, function (error, result) {
         
             if (error) { // e.g. [Error: AuthenticationFailure]
@@ -65,7 +77,13 @@ vuforiajs
             }
         });
         
-        // list all targets within cloud database
+´´´
+        
+list all targets within cloud database
+=========
+         
+``` 
+        
         client.listTargets(function (error, result) {
         
             console.log(result);
@@ -82,8 +100,14 @@ vuforiajs
             */
         
         });
+               
+´´´
         
-        // retrieve a specific target from cloud database
+retrieve a target from cloud database
+=========
+         
+```
+        
         client.retrieveTarget('00550e84e29b41d4a71644665555678', function (error, result) {
         
             /*
@@ -103,7 +127,13 @@ vuforiajs
              */
         });
         
-        // update a target
+´´´
+        
+update a target
+=========
+         
+```
+        
         var update = {
         
             'active_flag' : false
@@ -124,7 +154,13 @@ vuforiajs
         
         });
         
-        // delete a target
+´´´
+        
+delete a target
+=========
+         
+```
+        
         client.deleteTarget('00550e84e29b41d4a71644665555678', function (error, result) {
         
             /*
@@ -135,12 +171,17 @@ vuforiajs
              */
         });
         
-        /*
-         * finally search the cloud database for images that can be considered duplicates
-         * (e.g., images that are the same as the reference one identified by a given target_id).
-         */
+        
+´´´
+        
+search cloud database for images that can be considered duplicates
+=========
+         
+```
+        
         client.checkForDuplicateTargets('00550e84e29b41d4a71644665555678', function (error, result) {
         
+            // images that are the same as the reference one identified by a given target id
             /*
              {
                 “similar_targets”:
@@ -153,4 +194,4 @@ vuforiajs
         });
 
 
- ```
+´´´
