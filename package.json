@@ -1,7 +1,7 @@
 {
   "name": "vuforiajs",
-  "version": "0.2.5",
-  "description": "Node.js client for the Vuforia Web Services API (VWS API)",
+  "version": "0.3.0",
+  "description": "Node.js client for the Vuforia Web Services API (VWS API) and Cloud Recognition API (CloudReco API)",
   "main": "vuforia.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
