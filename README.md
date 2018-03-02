@@ -179,8 +179,9 @@ client.checkForDuplicateTargets('00550e84e29b41d4a71644665555678', function (err
 ```javascript
 var filename = __dirname + '/test.jpg'; // image file that will be send to Cloud Recognition
 var max_num_results = 5; // return only 5 matches
+var include_target_data = 'top'; // accepted values are top (default value, only return target_data for top ranked match), none (return no target_data), all (for all matched targets)
 
-client.cloudRecoQuery(fs.readFileSync(filename, 'binary'), max_num_results, function (error, result) {
+client.cloudRecoQuery(fs.readFileSync(filename, 'binary'), max_num_results, include_target_data, function (error, result) {
 
     // result from cloud recognition API
     /*
