@@ -20,7 +20,7 @@ var client = vuforia.client({
     'clientAccessKey': 'your client access key',
 
     // Client secret key (used for Vuforia Cloud Recognition API)
-    'clientAccessKey': 'your client access key',
+    'clientSecretKey': 'your client secret key',
 });
 
 // util for base64 encoding and decoding
