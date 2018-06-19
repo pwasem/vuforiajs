@@ -1,26 +1,26 @@
 # vuforiajs
- Node.js client for the Vuforia Web Services API (VWS API) and Cloud Recognition API (CloudReco API).
+ Node.js client for the [Vuforia Web Services API](https://library.vuforia.com/articles/Solution/How-To-Use-the-Vuforia-Web-Services-API.html) (VWS API) and the [Vuforia Web Query API](https://library.vuforia.com/articles/Solution/How-To-Perform-an-Image-Recognition-Query) (VWQ API).
  
 ## usage
       
 ```javascript
 // load module
-var vuforia = require('vuforiajs');
+var vuforia = require('vuforia-api');
 
 // init client with valid credentials
 var client = vuforia.client({
 
     // Server access key (used for Vuforia Web Services API)
-    'accessKey': 'your server access key',
+    'serverAccessKey': 'your server access key',
 
     // Server secret key (used for Vuforia Web Services API)
-    'secretKey': 'your server secret key'
+    'serverSecretKey': 'your server secret key',
 
-    // Client access key (used for Vuforia Cloud Recognition API)
+    // Client access key (used for Vuforia Web Query API)
     'clientAccessKey': 'your client access key',
 
-    // Client secret key (used for Vuforia Cloud Recognition API)
-    'clientAccessKey': 'your client access key',
+    // Client secret key (used for Vuforia Web Query API)
+    'clientSecretKey': 'your client secret key'
 });
 
 // util for base64 encoding and decoding
@@ -53,23 +53,27 @@ client.addTarget(target, function (error, result) {
     if (error) { // e.g. [Error: AuthenticationFailure]
 
         console.error(result);
-        /* result would look like
-            {
-            result_code: 'AuthenticationFailure',
-            transaction_id: '58b51ddc7a2c4ac58d405027acf5f99a'
-            }
-            */
+
+        /*
+        example of result from the vws API:
+        {
+        	result_code: 'AuthenticationFailure',
+        	transaction_id: '58b51ddc7a2c4ac58d405027acf5f99a'
+        }
+        */
 
     } else {
 
-        console.log(result);
-        /* result will look like
-            {
-            target_id: '93fd6681f1r74b76bg80tf736a11b6a9',
-            result_code: 'TargetCreated',
-            transaction_id: 'xf157g63179641c4920728f1650d1626'
-            }
-            */
+    	console.log(result);
+
+        /*
+        example of result from the vws API:
+        {
+        	target_id: '93fd6681f1r74b76bg80tf736a11b6a9',
+        	result_code: 'TargetCreated',
+        	transaction_id: 'xf157g63179641c4920728f1650d1626'
+        }
+        */
     }
 });
 ```
@@ -79,19 +83,34 @@ client.addTarget(target, function (error, result) {
 ```javascript
 client.listTargets(function (error, result) {
 
-    console.log(result);
+	if (error) { // e.g. [Error: AuthenticationFailure]
 
-    /*
-    {
-        “result_code”:”Success”,
-        “transaction_id”:”550e8400e29440000b41d4a716446655”,
-        “results”:[
-            ”00550e84e29b41d4a71644665555678”,
-            ”578fe7fd60055a5a84c2d215066b7a9d”
-        ]
+        console.error(result);
+
+        /*
+        example of result from the vws API:
+        {
+        	result_code: 'AuthenticationFailure',
+        	transaction_id: '58b51ddc7a2c4ac58d405027acf5f99a'
+        }
+        */
+
+    } else {
+
+    	console.log(result);
+
+        /*
+	    example of result from the vws API:
+	    {
+	        “result_code”:”Success”,
+	        “transaction_id”:”550e8400e29440000b41d4a716446655”,
+	        “results”:[
+	            ”00550e84e29b41d4a71644665555678”,
+	            ”578fe7fd60055a5a84c2d215066b7a9d”
+	        ]
+	    }
+	    */
     }
-    */
-
 });             
 ```
         
@@ -100,21 +119,39 @@ client.listTargets(function (error, result) {
 ```javascript
 client.retrieveTarget('00550e84e29b41d4a71644665555678', function (error, result) {
 
-    /*
+    if (error) { // e.g. [Error: AuthenticationFailure]
+
+        console.error(result);
+
+        /*
+        example of result from the vws API:
         {
-        “result_code”:”Success”,
-        “transaction_id”:”e29b41550e8400d4a716446655440000”,
-        “target_record”:{
-            “target_id”:”550b41d4a7164466554e8400e2949364”,
-            “active_flag”:true,
-            “name”:”tarmac”,
-            “width”:100.0,
-            “tracking_rating”:4,
-            “reco_rating”:””
-        },
-        “status”:”Success”
+        	result_code: 'AuthenticationFailure',
+        	transaction_id: '58b51ddc7a2c4ac58d405027acf5f99a'
         }
         */
+
+    } else {
+
+    	console.log(result);
+
+        /*
+        example of result from the vws API:
+        {
+            “result_code”:”Success”,
+            “transaction_id”:”e29b41550e8400d4a716446655440000”,
+            “target_record”:{
+                “target_id”:”550b41d4a7164466554e8400e2949364”,
+                “active_flag”:true,
+                “name”:”tarmac”,
+                “width”:100.0,
+                “tracking_rating”:4,
+                “reco_rating”:””
+            },
+            “status”:”Success”
+        }
+        */
+    }
 });
 ```
 
@@ -123,22 +160,36 @@ client.retrieveTarget('00550e84e29b41d4a71644665555678', function (error, result
 ```javascript
 var update = {
 
-    'active_flag' : false
+    'active_flag' : true,
+    'application_metadata' : util.encodeBase64('Some metadata about your image')
 };
 
 client.updateTarget('00550e84e29b41d4a71644665555678', update, function (error, result) {
 
-    /*
+	if (error) { // e.g. [Error: AuthenticationFailure]
+
+        console.error(result);
+
+        /*
+        example of result from the vws API:
         {
-        “name”:”tarmac”,
-        “width:32.0,
-        “image”:”0912ba39x….”,
-        “active_flag”:false,
-        “application_metadata”:“496fbb6532b3863460a984de1d980bed5ebcd507”
+        	result_code: 'AuthenticationFailure',
+        	transaction_id: '58b51ddc7a2c4ac58d405027acf5f99a'
         }
         */
-    // util.decodeBase64(application_metadata);
 
+    } else {
+
+    	console.log(result);
+
+        /*
+	    example of result from the vws API:
+	    {
+	    	"result_code":"Success",
+  			"transaction_id":"550e8400e29b41d4a716446655482752"
+	    }
+	    */
+    }
 });
 ```
 
@@ -147,12 +198,30 @@ client.updateTarget('00550e84e29b41d4a71644665555678', update, function (error, 
 ```javascript
 client.deleteTarget('00550e84e29b41d4a71644665555678', function (error, result) {
 
-    /*
+	if (error) { // e.g. [Error: AuthenticationFailure]
+
+        console.error(result);
+
+        /*
+        example of result from the vws API:
         {
-        “result_code”:”Success”,
-        “transaction_id”:”550e8400e29b41d4a716446655482752”
+        	result_code: 'AuthenticationFailure',
+        	transaction_id: '58b51ddc7a2c4ac58d405027acf5f99a'
         }
         */
+
+    } else {
+
+    	console.log(result);
+
+        /*
+	    example of result from the vws API:
+	    {
+	    	“result_code”:”Success”,
+	    	“transaction_id”:”550e8400e29b41d4a716446655482752”
+	    }
+	    */
+    }
 });
 ```
            
@@ -162,36 +231,72 @@ client.deleteTarget('00550e84e29b41d4a71644665555678', function (error, result) 
 client.checkForDuplicateTargets('00550e84e29b41d4a71644665555678', function (error, result) {
 
     // images that are the same as the reference one identified by a given target id
-    /*
+
+    if (error) { // e.g. [Error: AuthenticationFailure]
+
+        console.error(result);
+
+        /*
+        example of result from the vws API:
         {
-        “similar_targets”:
-        [
-            ”550e8400e29b41d4a716446655447300”,
-            ”578fe7fd60055cbc84c2d215066b7a9d”
-        ]
+        	result_code: 'AuthenticationFailure',
+        	transaction_id: '58b51ddc7a2c4ac58d405027acf5f99a'
         }
         */
+
+    } else {
+
+    	console.log(result);
+
+        /*
+	    example of result from the vws API:
+	    {
+		    “similar_targets”:
+		    [
+		        ”550e8400e29b41d4a716446655447300”,
+		        ”578fe7fd60055cbc84c2d215066b7a9d”
+		    ]
+	    }
+	    */
+    }
 });
 ```
 
-## perform Cloud Recognition query
+## Perform an Image Recognition Query
 
 ```javascript
-var filename = __dirname + '/test.jpg'; // image file that will be send to Cloud Recognition
+var filename = __dirname + '/test.jpg'; // image file that will be send to the Vuforia Web Query API
 var max_num_results = 5; // return only 5 matches
 
 client.cloudRecoQuery(fs.readFileSync(filename, 'binary'), max_num_results, function (error, result) {
 
-    // result from cloud recognition API
-    /*
-    { 
-        result_code: 'Success',
-        transaction_id: 'b66bef31ba394c86a7ea2ab7e35c93d1',
-        results: 
-        [ 
-            'eacbb1487c584dbb8741fb5a28b4228f' 
-        ] 
+	if (error) { // e.g. [Error: AuthenticationFailure]
+
+        console.error(result);
+
+        /*
+        example of result from the vwq API:
+        {
+        	result_code: 'AuthenticationFailure',
+        	transaction_id: '58b51ddc7a2c4ac58d405027acf5f99a'
+        }
+        */
+
+    } else {
+
+    	console.log(result);
+
+        /*
+	    example of result from the vwq API:
+	    { 
+	        result_code: 'Success',
+	        transaction_id: 'b66bef31ba394c86a7ea2ab7e35c93d1',
+	        results: 
+	        [ 
+	            'eacbb1487c584dbb8741fb5a28b4228f' 
+	        ] 
+	    }
+	    */
     }
-    */
 });
 ```
